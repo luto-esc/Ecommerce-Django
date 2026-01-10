@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Products lists</h1>
+
+{% for product in products %}
+    <ul>
+        <li>
+            {{product.images}}
+        </li>
+        <li>
+            {{product.name}}
+        </li>
+        <li>
+            {{product.description}}
+        </li>
+        <li>
+            {{product.price}}
+        </li>
+        <li>
+            {{product.cost_price}}
+        </li>
+        <li>
+            {{product.stock}}
+        </li>
+        <div>
+        {% for images in product.images.all %}
+            <img src="{{ image.image.url }}">
+        {% endfor %}
+        </div>
+    </ul>
+{% endfor %}
+
+
+
+
+
+{% endblock content %}
