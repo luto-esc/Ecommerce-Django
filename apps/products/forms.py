@@ -27,8 +27,9 @@ class ProductForm(forms.ModelForm):
     
     class Meta:
         model = Product
-        fields = ['name', 'description', 'price', 'stock']
+        fields = ['name', 'description', 'cost_price', 'price', 'stock']
 
 class CreateProductForm(ProductForm):
-    images = MultipleFileField()
+    images = MultipleFileField(required=False)
+
 

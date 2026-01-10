@@ -4,31 +4,37 @@
 
 <h1>Products lists</h1>
 
-{% for product in products %}
+{% for product in page_obj %}
+    <a href="{% url 'products:path_product_update' product.pk %}">
+     Update product</a>
+    <a href="{% url 'products:path_product_delete' product.pk %}">
+     Delete product</a>
     <ul>
-        <li>
-            {{product.images}}
-        </li>
+        <div>
+            {% for images in product.images.all %}
+                <img src="{{ images.images.url }}">
+            {% endfor %}
+        </div>
+        
         <li>
             {{product.name}}
         </li>
+        
         <li>
             {{product.description}}
         </li>
+        
         <li>
             {{product.price}}
         </li>
+        
         <li>
             {{product.cost_price}}
         </li>
+        
         <li>
             {{product.stock}}
         </li>
-        <div>
-        {% for images in product.images.all %}
-            <img src="{{ image.image.url }}">
-        {% endfor %}
-        </div>
     </ul>
 {% endfor %}
 
