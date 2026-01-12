@@ -49,11 +49,10 @@ returns the clean data, or launch an error
 #html whit multiple can return -> list or tuple
 '''
 -->case one if: for d in data
-call django's original clean()
-validet the file
-return clean file
-add to result
-pass initial for edit 
+call django's original clean(), validet the file, return clean file, add to result, pass initial for edit 
+--> isintance is a native function python's
+ syntax -> isinstance(object, type) ex: isinstance(5,int)->true
+     return -> true or false
 '''
         if isinstance(data, (list, tuple)):
             result = [single_file_clean(d, initial) for d in data]
@@ -63,7 +62,7 @@ pass initial for edit
             
         if len(result) > 5:
             raise forms.ValidationError("Maximun 5 images for product")
-
+#-->return a list
         return result
 
 class ProductForm(forms.ModelForm):
@@ -72,7 +71,11 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = ['name', 'description', 'cost_price', 'price', 'stock']
 
+'''
+this form have filds of ProductForm, images field (does not belong to the model )
+'''
 class CreateProductForm(ProductForm):
+#-->this adds an extra field to the form
     images = MultipleFileField(required=False)
 
 

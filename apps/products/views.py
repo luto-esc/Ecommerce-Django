@@ -55,7 +55,7 @@ class ProductUpdateView(UpdateView):
     def form_valid(self, form):
         product = form.save(commit=False)
         product.save()
-
+#-->"images" is from CreateProductForm(ProductForm):
         images = form.cleaned_data.get("images")
 
         if images:
