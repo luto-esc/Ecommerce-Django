@@ -14,9 +14,18 @@ class ProductCreateView(CreateView):
 
     def form_valid(self, form):
         product = form.save(commit=False)
+#the object gets an id
         product.save()
-
+#imges is from CreateProductForm(ProductForm):
         for img in form.cleaned_data["images"]:
+'''
+--> .objects is a manager, the manager can know:
+    create object, consult in the db, delete, filter
+--> .create() is a shortcuts that does two things at once: build the object, saved in the db
+receive the model fields as keyword arguments
+->product = product: django use product.id for save the foreignkey
+->images = img
+'''
             ProductImage.objects.create(
                 product=product,
                 images=img
