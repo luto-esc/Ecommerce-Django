@@ -9,11 +9,12 @@
      Update product</a>
     <a href="{% url 'products:path_product_delete' product.pk %}">
      Delete product</a>
+     <a href="{% url  'products:path_product_detail' product.pk %}">Detail</a>
     <ul>
         <div>
-            {% for images in product.images.all %}
-                <img src="{{ images.images.url }}">
-            {% endfor %}
+            {% if product.prefetched_images %}
+                <img src="{{ product.prefetched_images.0.images.url }}" alt="{{ product.name }}">
+            {% endif %}
         </div>
         
         <li>
@@ -26,10 +27,6 @@
         
         <li>
             {{product.price}}
-        </li>
-        
-        <li>
-            {{product.cost_price}}
         </li>
         
         <li>
