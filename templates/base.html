@@ -10,6 +10,17 @@
 
 <body>
 <h1>base</h1>
+
+	{% if user.is_authenticated %}
+		<p> Hola, {{user.username}}</p>
+		<form method="POST" action="{% url 'users:path_logout' %}">{% csrf_token%}
+		<button type="submit">Logout</button>
+		</form>
+	{% else %}
+		<p>Welcome, please log in</p>
+		<a href="{% url 'users:path_login' %}">Login</a>	
+	{% endif %}
+
 {% block content %}
 
 {% endblock content%}

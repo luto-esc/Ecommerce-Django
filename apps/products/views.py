@@ -14,19 +14,22 @@ class ProductCreateView(CreateView):
     success_url = reverse_lazy('core:path_home')
 
     def form_valid(self, form):
-        #form.save(commit=false) no impact in the db
+        #form.save(commit=false) no impacta en db todavia
         product = form.save(commit=False)
-        #the object gets an id
+        #guardar el usuario creador
+        product.author = self.request.user
+        #impacta en la base de datos y obtiene un id
         product.save()
-        #images is from CreateProductForm(ProductForm):
+        #"images" es de CreateProductForm(ProductForm):
         for img in form.cleaned_data["images"]:
 
-        #--> .objects is a manager, the manager can know:
-        #    create object, consult in the db, delete, filter
-        #--> .create() is a shortcuts that does two things at once: build the object, saved in the db
-        #receive the model fields as keyword arguments
-        #->product = product: django use product.id for save the foreignkey
-        #->images = img
+        # --> .objects es un manager; el manager sabe:
+        #crear objetos, consultar la base de datos, eliminar y filtrar
+        #--> .create() es un atajo que hace dos cosas a la vez:
+        #crea el objeto y lo guarda en la base de datos
+        #Recibe los campos del modelo como argumentos con nombre (keyword arguments)
+        #-> product = product: Django usa product.id para guardar la ForeignKey
+        #-> images = img
 
             ProductImage.objects.create(
                 product=product,
@@ -43,12 +46,12 @@ def productreadview(request):
     query = request.GET.get('name','')
     if query:
         products = products.filter(name__icontains=query)
-    #products.prefetch_related --> method of queryset, it is suitable for 1-to-many and many-to-many relationships
-    #run an query for product, run an extra query for all images
-    #Prefetc --> it allow you to customize how prefetch is done
-    #'images' --> the related_name of fk
-    #queryset...--> define which images import, define how order them
-    #to_attr --> put them in a new attribute called "prefetch_images"
+#products.prefetch_related  # Método de QuerySet, es adecuado para relaciones uno-a-muchos y muchos-a-muchos
+# Ejecuta una consulta para Product y una consulta extra para todas las imágenes relacionadas
+# Prefetch --> permite personalizar cómo se realiza la precarga de datos
+# 'images' --> es el related_name de la ForeignKey
+# queryset --> define qué imágenes traer y cómo ordenarlas
+# to_attr --> guarda el resultado en un nuevo atributo llamado "prefetch_images"
     products = products.prefetch_related(Prefetch('images',queryset=ProductImage.objects.order_by('id'),to_attr='prefetched_images'))
 
     paginator = Paginator(products,5)
@@ -72,13 +75,13 @@ class ProductUpdateView(UpdateView):
     def form_valid(self, form):
         product = form.save(commit=False)
         product.save()
-        #-->"images" is from CreateProductForm(ProductForm):
-        #use because .get it may not exist, return instead of an error
-        #if the user doesn't upload any image, it would only be form.cleaned_data-> return error
+        #--> "images" viene de CreateProductForm (ProductForm)
+        #Se usa .get() porque puede no existir y devuelve None en lugar de lanzar un error
+        #Si el usuario no sube ninguna imagen, usar form.cleaned_data["images"]
         images = form.cleaned_data.get("images")
         #
         if images:
-            #remove all current product images
+            #Elimina todas las imágenes actuales del producto
             ProductImage.objects.filter(product=product).delete()
 
             for img in images:

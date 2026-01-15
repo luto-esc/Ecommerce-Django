@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Register</h1>
+
+<form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+    {{ form.as_ul }}
+    <button type="submit">Register</button>
+    <a href="{% url 'users:path_login' %}">Login</a>
+</form>
+
+{% endblock content %}
