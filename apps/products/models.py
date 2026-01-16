@@ -10,8 +10,9 @@ class Product(models.Model):
 	price = models.DecimalField(max_digits = 8, decimal_places=2)
 	cost_price = models.DecimalField(max_digits = 8, decimal_places=2)
 	stock = models.PositiveIntegerField()
-	#author = models.ForeignKey(User, on_delete=models.CASCADE)
-	# date_create = models.DateTimeField(auto_now_add=True)
+	user_author = models.ForeignKey(User, on_delete=models.CASCADE)
+	create_date = models.DateTimeField(auto_now_add = True)
+	category = models.ForeignKey(ProductCategory, related_name='categories', on_delete=models.CASCADE)
 
 	
 	def __str__(self):
