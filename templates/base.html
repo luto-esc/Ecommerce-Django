@@ -18,7 +18,8 @@
 		</form>
 	{% else %}
 		<p>Welcome, please log in</p>
-		<a href="{% url 'users:path_login' %}">Login</a>	
+		<a href="{% url 'users:path_login' %}">Login</a>
+		<a href="{% url 'users:path_register' %}">Register</a>
 	{% endif %}
 
 {% block content %}
