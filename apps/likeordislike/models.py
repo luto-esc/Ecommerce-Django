@@ -9,4 +9,4 @@ class ProductLikesOrDislikes(models.Model):
 	dislikes = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.likes} {self.dislikes}"
+        return f"The product {self.product.name} have {self.likes} and {self.dislikes}"
