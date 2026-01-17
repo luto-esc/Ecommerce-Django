@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from apps.categories.models import ProductCategory
 
 
+
 class Product(models.Model):
 	
 	name = models.CharField(max_length = 180)
@@ -13,10 +14,16 @@ class Product(models.Model):
 	user_author = models.ForeignKey(User, on_delete=models.CASCADE)
 	create_date = models.DateTimeField(auto_now_add = True)
 	category = models.ForeignKey(ProductCategory, related_name='categories', on_delete=models.CASCADE)
+	likes = models.IntegerField(default=0)
+	dislikes = models.IntegerField(default=0)
 
-	
 	def __str__(self):
 		return self.name
+	
+	def myOpinions(self):
+		return self.opinion_set.all()
+	
+
 	
 class ProductImage(models.Model):
     product = models.ForeignKey(Product,related_name="images",on_delete=models.CASCADE)
