@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from apps.categories.models import ProductCategory
 
-
-
 class Product(models.Model):
 	
 	name = models.CharField(max_length = 180)
