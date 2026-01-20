@@ -17,7 +17,7 @@ class ProductCreateView(CreateView):
         #form.save(commit=false) no impacta en db todavia
         product = form.save(commit=False)
         #guardar el usuario creador
-        product.author = self.request.user
+        product.user_author = self.request.user
         #impacta en la base de datos y obtiene un id
         product.save()
         #"images" es de CreateProductForm(ProductForm):

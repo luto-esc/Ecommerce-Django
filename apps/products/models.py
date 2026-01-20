@@ -11,13 +11,14 @@ class Product(models.Model):
 	stock = models.PositiveIntegerField()
 	user_author = models.ForeignKey(User, on_delete=models.CASCADE)
 	create_date = models.DateTimeField(auto_now_add = True)
-	category = models.ForeignKey(ProductCategory, related_name='categories', on_delete=models.CASCADE)
+	#category = models.ForeignKey(ProductCategory, related_name='categories', on_delete=models.CASCADE)
 
 	def __str__(self):
 		return self.name
 	
 	def myOpinions(self):
 		return self.opinion_set.all()
+
 	
 
 	

@@ -3,31 +3,41 @@ from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from apps.reactions.models import Reaction
 from apps.products.models import Product
-from .models import Liken Dislike
+from .models import Like, Dislike
+from django.contrib.auth.decorators import login_required
 
-def reaction_like(self, pk):
+@login_required
+#------------PRODUCT REACTION---------
+def product_reaction(self, pk):
 	#Cargamos el formulario
 	if request.method == 'POST':
+    #Tomamos el producto
     product = Product.objects.get(pk=pk)
+    #Tomamos el usuario
     user = request.user
-    #Comprueba si ya dio like
-    ya_dio_like = Like.objects.filter(product=product,author=user).exists()
-    #Comprueba si ya dio dislike
-    ya_dio_dislike = Dislike.objects.filter(product=product,author=user).exists()
+    
+    #Comprueba si el usuario existe en la tabla y dio like a ese producto
+    have_like = Like.objects.filter(product=product,author=user).exists()
+    
+    #Comprueba si el usuario existe en la tabla y ya dio like a ese producto
+    have_dislike = Dislike.objects.filter(product=product,author=user).exists()
 
-    if ya_dio_like:
+    #Si ya_dio_like --> = True, osea que el usuario ya habia dado like, elimina su registro de la tabla
+    if have_like:
         Like.objects.filter(product=product, author=user).delete()
 
-
-    if ya_dio_dislike:
+    #Si ya_dio_dislike --> = False, osea que el usuario ya habia dado dislike, elimina su registro de la tabla
+    if have_dislike:
         Dislike.objects.filter(product=product, author=user).delete()
 
     # según el botón que apretó
-    accion = request.POST.get('accion')
+    action = request.POST.get('action')
 
-    if accion == 'like':
+    #Si el input es like, se crea un fila en la tabla like
+    if action == 'like':
         Like.objects.create(product=product, author=user)
-
-    elif accion == 'dislike':
+    #Si el input es dislike, se crea una fila en la tabla dislike
+    elif action == 'dislike':
         Dislike.objects.create(product=product, author=user)
 
+    return HttpResponseRedirect(reverse_lazy('products:path_product_detail', kwargs = {'pk':pk}))

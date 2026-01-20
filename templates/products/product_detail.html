@@ -32,4 +32,12 @@
         </li>
     </ul>
 
+    <h3>Reaction</h3>
+        <form method="POST" action="{% url 'reactions:path_product_reaction' product.pk %}">{% csrf_token %}
+
+            <button type="submit" name="action" value="like">Like</button>
+
+            <button type="submit" name="action" value="dislike">Dislike</button>
+        </form>
+
 {% endblock content%}
