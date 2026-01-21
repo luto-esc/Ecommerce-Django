@@ -4,6 +4,6 @@ from . import views
 app_name = 'reactions'
 
 urlpatterns = [
-    path('reactions/<int:pk>', views.pruduct_reaction(), name = 'path_product_reaction'),
+    path('reactions/<int:pk>', views.product_reaction, name = 'path_product_reaction'),
 
 ]
