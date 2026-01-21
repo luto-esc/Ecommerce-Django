@@ -31,13 +31,21 @@
             {{product.stock}}
         </li>
 
-        <li>
-            <p>{{product.myLikes}}likes</p>
-        </li>
+        {% if product.myLikes == 0 %}
+            <li>be the first like</li>
+        {% else %}
+            <li>
+                <p>{{product.myLikes}}likes</p>
+            </li>
+        {% endif %}
         
-        <li>
-            <p>{{product.myDislikes}}likes</p>
-        </li>
+        {% if product.myDislikes == 0 %}
+            <li>be the first dislike</li>
+        {% else %}
+            <li>
+                <p>{{product.myDislikes}}dislikes</p>
+            </li>
+        {% endif %}
     </ul>
 
     <h3>Reaction</h3>
