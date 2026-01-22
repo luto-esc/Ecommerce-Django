@@ -62,9 +62,11 @@
             <p>{{o.text}}</p>
             <p>creado -> {{o.create_data}}</p>
             <a href="{% url 'opinions:path_opinion_delete' o.pk %}">Delete</a>
+        {% empty %}
+            <p>There are no reviews of the product yet.</p>
         {% endfor %}
 
-    <h2>Deja tu opinion</h2>
+    <h2>Leave your opinion</h2>
         <form method="POST" action="{% url 'opinions:path_opinion_create' product.pk %}">{% csrf_token %}
             <textarea style="width:400px; height: 200px;" name="text_comment"></textarea>
             <button type="submit">Comment</button>
