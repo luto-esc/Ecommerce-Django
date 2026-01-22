@@ -8,36 +8,47 @@ from django.contrib.auth.decorators import login_required
 @login_required
 #------------PRODUCT REACTION---------
 def product_reaction(request, pk):
-    # Cargamos el formulario
+    #Cargamos el formulario
     if request.method == 'POST':
-        # Tomamos el producto
+        #Tomamos el producto
         product = Product.objects.get(pk=pk)
 
-        # Tomamos el usuario
+        #Tomamos el usuario
         user = request.user
-    
-        #Comprueba si el usuario existe en la tabla y dio like a ese producto
-        have_like = Like.objects.filter(product=product,author=user).exists()
-    
-        #Comprueba si el usuario existe en la tabla y ya dio like a ese producto
-        have_dislike = DisLike.objects.filter(product=product,author=user).exists()
 
-        #Si ya_dio_like --> = True, osea que el usuario ya habia dado like, elimina su registro de la tabla
-        if have_like:
-            Like.objects.filter(product=product, author=user).delete()
-
-        #Si ya_dio_dislike --> = False, osea que el usuario ya habia dado dislike, elimina su registro de la tabla
-        if have_dislike:
-            DisLike.objects.filter(product=product, author=user).delete()
-
-        # según el botón que apretó
+        #Según el botón que apretó
         action = request.POST.get('action')
 
-        #Si el input es like, se crea un fila en la tabla like
+        #Comprueba si existe en la tabla
+        have_like = Like.objects.filter(product=product,author=user).exists()
+        have_dislike = DisLike.objects.filter(product=product,author=user).exists()
+
+        #Si el input es like
         if action == 'like':
-            Like.objects.create(product=product, author=user)
-        #Si el input es dislike, se crea una fila en la tabla dislike
+
+            #Si existe en la tabla dislike lo elimina
+            if have_dislike:
+                DisLike.objects.filter(product=product,author=user).delete()
+
+            #Si existe en la tabla like
+            if have_like:
+                Like.objects.filter(product=product,author=user).delete()
+            else:
+                #Si no lo crea
+                Like.objects.create(product=product, author=user)
+         
+         #Si el input es dislike    
         elif action == 'dislike':
-            DisLike.objects.create(product=product, author=user)
+            
+            #Si existe en la tabla like lo elimina
+            if have_like:
+                Like.objects.filter(product=product,author=user).delete()
+
+            #Si existe en la tabla dislike lo elimina
+            if have_dislike:
+                DisLike.objects.filter(product=product,author=user).delete()
+            else:
+                #Sino lo crea
+                DisLike.objects.create(product=product, author=user)
 
     return HttpResponseRedirect(reverse_lazy('products:path_product_detail', kwargs = {'pk':pk}))
