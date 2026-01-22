@@ -17,7 +17,7 @@ class Product(models.Model):
 		return self.name
 	
 	def myOpinions(self):
-		return self.opinion_set.all()
+		return self.opinion.all()
 
 	def myLikes(self):
 		return self.like.all().count()

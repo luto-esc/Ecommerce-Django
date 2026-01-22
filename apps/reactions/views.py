@@ -5,8 +5,8 @@ from apps.products.models import Product
 from .models import Like, DisLike
 from django.contrib.auth.decorators import login_required
 
-@login_required
 #------------PRODUCT REACTION---------
+@login_required
 def product_reaction(request, pk):
     #Cargamos el formulario
     if request.method == 'POST':

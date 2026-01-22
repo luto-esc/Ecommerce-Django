@@ -14,6 +14,8 @@ urlpatterns = [
 
     path('users/', include('apps.users.urls')),
 
-    path('ractions/', include('apps.reactions.urls'))
+    path('ractions/', include('apps.reactions.urls')),
+
+    path('opinions/', include('apps.opinions.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
