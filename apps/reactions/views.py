@@ -59,7 +59,7 @@ def product_reaction(request, pk):
 def opinion_reaction(request, pk):
     #Cargamos el formulario
     if request.method == 'POST':
-        #Tomamos el producto
+        #Tomamos la opinon
         opinion = ProductOpinion.objects.get(pk=pk)
 
         #Tomamos el usuario
@@ -69,35 +69,35 @@ def opinion_reaction(request, pk):
         action = request.POST.get('action')
 
         #Comprueba si existe en la tabla
-        have_like = OpinionLike.objects.filter(product=product,author=user).exists()
-        have_dislike = OpinionDisLike.objects.filter(product=product,author=user).exists()
+        have_like = OpinionLike.objects.filter(opinion=opinion,author=user).exists()
+        have_dislike = OpinionDisLike.objects.filter(opinion=opinion,author=user).exists()
 
         #Si el input es like
         if action == 'like':
 
             #Si existe en la tabla dislike lo elimina
             if have_dislike:
-                DisLike.objects.filter(product=product,author=user).delete()
+                OpinionDisLike.objects.filter(opinion=opinion,author=user).delete()
 
             #Si existe en la tabla like
             if have_like:
-                Like.objects.filter(product=product,author=user).delete()
+                OpinionLike.objects.filter(opinion=opinion,author=user).delete()
             else:
                 #Si no lo crea
-                Like.objects.create(product=product, author=user)
+                OpinionLike.objects.create(opinion=opinion, author=user)
          
          #Si el input es dislike    
         elif action == 'dislike':
             
             #Si existe en la tabla like lo elimina
             if have_like:
-                Like.objects.filter(product=product,author=user).delete()
+                OpinionLike.objects.filter(opinion=opinion,author=user).delete()
 
             #Si existe en la tabla dislike lo elimina
             if have_dislike:
-                DisLike.objects.filter(product=product,author=user).delete()
+                OpinionDisLike.objects.filter(opinion=opinion,author=user).delete()
             else:
                 #Sino lo crea
-                DisLike.objects.create(product=product, author=user)
+                OpinionDisLike.objects.create(opinion=opinion, author=user)
 
     return HttpResponseRedirect(reverse_lazy('products:path_product_detail', kwargs = {'pk':pk}))

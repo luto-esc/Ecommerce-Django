@@ -62,8 +62,33 @@
             <p>{{o.text}}</p>
             <p>creado -> {{o.create_data}}</p>
             <a href="{% url 'opinions:path_opinion_delete' o.pk %}">Delete</a>
+        {% if o.myLikes == 0 %}
+            <li>be the first like</li>
+        {% else %}
+            <li>
+                <p>{{o.myLikes}}likes</p>
+            </li>
+        {% endif %}
+        
+        {% if o.myDislikes == 0 %}
+            <li>be the first dislike</li>
+        {% else %}
+            <li>
+                <p>{{o.myDislikes}}dislikes</p>
+            </li>
+        {% endif %}
+        <h3>Opinion Reaction</h3>
+            <form method="POST" action="{% url 'reactions:path_opinion_reaction' o.pk %}">{% csrf_token %}
+
+                <button type="submit" name="action" value="like">Like</button>
+
+                <button type="submit" name="action" value="dislike">Dislike</button>
+            </form>
+    </div>
+
         {% empty %}
-            <p>There are no reviews of the product yet.</p>
+        <p>There are no reviews of the product yet.</p>
+
         {% endfor %}
     <div>
         <h2>Leave your opinion</h2>
@@ -71,29 +96,6 @@
                 <textarea style="width:400px; height: 200px;" name="text_comment"></textarea>
                 <button type="submit">Comment</button>
             </form>
-        {% if productopinion.myLikes == 0 %}
-            <li>be the first like</li>
-        {% else %}
-            <li>
-                <p>{{productopinion.myLikes}}likes</p>
-            </li>
-        {% endif %}
-        
-        {% if productopinion.myDislikes == 0 %}
-            <li>be the first dislike</li>
-        {% else %}
-            <li>
-                <p>{{productopinion.myDislikes}}dislikes</p>
-            </li>
-        {% endif %}
-        <h3>Opinion Reaction</h3>
-            <form method="POST" action="{% url 'reactions:path_opinion_reaction' productopinion.pk %}">{% csrf_token %}
-
-                <button type="submit" name="action" value="like">Like</button>
-
-                <button type="submit" name="action" value="dislike">Dislike</button>
-            </form>
-    </div>
 
 
 {% endblock content%}
