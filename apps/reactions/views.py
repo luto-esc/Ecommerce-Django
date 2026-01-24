@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from apps.products.models import Product
-from apps.opinons.models import ProductOpinion
+from apps.opinions.models import ProductOpinion
 from .models import Like, DisLike, OpinionLike, OpinionDisLike
 from django.contrib.auth.decorators import login_required
 

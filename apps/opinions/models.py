@@ -11,3 +11,9 @@ class ProductOpinion(models.Model):
 
     def __str__(self):
         return self.create_data
+
+    def myLikes(self):
+        return self.like.all().count()
+
+    def myDislikes(self):
+        return self.dislike.all().count()
