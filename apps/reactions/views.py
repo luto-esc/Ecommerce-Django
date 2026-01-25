@@ -59,8 +59,10 @@ def product_reaction(request, pk):
 def opinion_reaction(request, pk):
     #Cargamos el formulario
     if request.method == 'POST':
-        #Tomamos la opinon
+        #Tomamos la opinion
         opinion = ProductOpinion.objects.get(pk=pk)
+        product = opinion.product
+        product_pk = product.pk
 
         #Tomamos el usuario
         user = request.user
@@ -100,4 +102,4 @@ def opinion_reaction(request, pk):
                 #Sino lo crea
                 OpinionDisLike.objects.create(opinion=opinion, author=user)
 
-    return HttpResponseRedirect(reverse_lazy('products:path_product_detail', kwargs = {'pk':pk}))
+    return HttpResponseRedirect(reverse_lazy('products:path_product_detail', kwargs = {'pk':product_pk}))
