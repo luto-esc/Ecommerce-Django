@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from apps.categories.models import ProductCategory
+from apps.shopping_cart.models import ShoppingCart
 
 class Product(models.Model):
 	
@@ -11,6 +12,7 @@ class Product(models.Model):
 	stock = models.PositiveIntegerField()
 	user_author = models.ForeignKey(User, on_delete=models.CASCADE)
 	create_date = models.DateTimeField(auto_now_add = True)
+	shopping_car = models.ManyToManyField(ShoppingCart)
 	#category = models.ForeignKey(ProductCategory, related_name='categories', on_delete=models.CASCADE)
 
 	def __str__(self):
