@@ -4,6 +4,13 @@
 
 <h1>Products lists</h1>
 
+<div>
+    <form method="GET">
+        <input type="text" name="name" placeholder="Search products..." value="{{ query }}">
+        <button type="submit">Search</button>
+    </form>
+</div>
+
 {% for product in page_obj %}
     <a href="{% url 'products:path_product_update' product.pk %}">
      Update product</a>

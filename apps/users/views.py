@@ -9,7 +9,7 @@ class UserRegister(CreateView):
 	form_class = UserRegisterForm
 	success_url = reverse_lazy('users:path_login')
 
-	def form_valid(self)
+	def form_valid(self):
 		user = form.save()
 		ShoppingCart.objects.get_or_create(user=user)
 
