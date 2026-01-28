@@ -103,7 +103,9 @@ header h1 {
     padding: 5px 10px;
     border: 1px solid #fff;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
 }
 
 .logout-form button:hover,
