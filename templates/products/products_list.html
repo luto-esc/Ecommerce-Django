@@ -2,48 +2,57 @@
 
 {% block content %}
 
-<h1>Products lists</h1>
+<h1>Productos</h1>
 
-<div>
+<!-- Barra de búsqueda -->
+<div class="search-box">
     <form method="GET">
-        <input type="text" name="name" placeholder="Search products..." value="{{ query }}">
-        <button type="submit">Search</button>
+        <input type="text" name="name" placeholder="Buscar productos..." value="{{ query }}">
+        <button type="submit">Buscar</button>
     </form>
 </div>
 
-{% for product in page_obj %}
-    <a href="{% url 'products:path_product_update' product.pk %}">
-     Update product</a>
-    <a href="{% url 'products:path_product_delete' product.pk %}">
-     Delete product</a>
-     <a href="{% url  'products:path_product_detail' product.pk %}">Detail</a>
-    <ul>
-        <div>
+<!-- Lista de productos -->
+<div class="products-list">
+    {% for product in page_obj %}
+    <div class="product-item">
+        <div class="product-item-image">
             {% if product.prefetched_images %}
-                <img src="{{ product.prefetched_images.0.images.url }}" alt="{{ product.name }}">
+            <img src="{{ product.prefetched_images.0.images.url }}" alt="{{ product.name }}">
+            {% else %}
+            <div class="no-image-small">Sin imagen</div>
             {% endif %}
         </div>
-        
-        <li>
-            {{product.name}}
-        </li>
-        
-        <li>
-            {{product.description}}
-        </li>
-        
-        <li>
-            {{product.price}}
-        </li>
-        
-        <li>
-            {{product.stock}}
-        </li>
-    </ul>
-{% endfor %}
+        <div class="product-item-info">
+            <h3 class="product-item-name">{{ product.name }}</h3>
+            <p class="product-item-price">${{ product.price }}</p>
+            <div class="product-item-actions">
+                <a href="{% url 'products:path_product_detail' product.pk %}" class="btn-view">Ver detalle</a>
+                <a href="{% url 'products:path_product_update' product.pk %}" class="btn-edit">Editar</a>
+                <a href="{% url 'products:path_product_delete' product.pk %}" class="btn-delete-small">Eliminar</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="no-products">No hay productos disponibles.</p>
+    {% endfor %}
+</div>
 
+<!-- Paginación -->
+{% if page_obj.has_other_pages %}
+<div class="pagination">
+    {% if page_obj.has_previous %}
+    <a href="?page=1{% if query %}&name={{ query }}{% endif %}">« Primera</a>
+    <a href="?page={{ page_obj.previous_page_number }}{% if query %}&name={{ query }}{% endif %}">‹ Anterior</a>
+    {% endif %}
 
+    <span class="current">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
 
-
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}{% if query %}&name={{ query }}{% endif %}">Siguiente ›</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}{% if query %}&name={{ query }}{% endif %}">Última »</a>
+    {% endif %}
+</div>
+{% endif %}
 
 {% endblock content %}

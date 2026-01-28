@@ -2,28 +2,47 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
+	<title>{% block title %}Ecommerce{% endblock title %}</title>
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
-<h1>base</h1>
+	<header>
+		<div class="header-top">
+			{% if user.is_authenticated %}
+			<span class="user-greeting">Hola, {{ user.username }}</span>
+			{% endif %}
+		</div>
+		<div class="header-main">
+			<h1><a href="{% url 'core:path_home' %}" class="logo">Ecommerce</a></h1>
+			<nav class="nav-links">
+				<a href="{% url 'core:path_home' %}">Inicio</a>
+				<a href="{% url 'products:path_products_list' %}">Productos</a>
+				{% if user.is_authenticated %}
+				<form method="POST" action="{% url 'users:path_logout' %}" class="logout-form">
+					{% csrf_token %}
+					<button type="submit">Logout</button>
+				</form>
+				{% else %}
+				<a href="{% url 'users:path_login' %}">Login</a>
+				<a href="{% url 'users:path_register' %}">Registrarse</a>
+				{% endif %}
+			</nav>
+		</div>
+	</header>
 
-	{% if user.is_authenticated %}
-		<p> Hola, {{user.username}}</p>
-		<form method="POST" action="{% url 'users:path_logout' %}">{% csrf_token%}
-		<button type="submit">Logout</button>
-		</form>
-	{% else %}
-		<p>Welcome, please log in</p>
-		<a href="{% url 'users:path_login' %}">Login</a>
-		<a href="{% url 'users:path_register' %}">Register</a>
-	{% endif %}
+	<div class="container">
+		{% block content %}
+		{% endblock content %}
+	</div>
 
-{% block content %}
-
-{% endblock content%}
+	<footer>
+		<p>&copy; 2024 Ecommerce - Todos los derechos reservados</p>
+	</footer>
 </body>
+
 </html>

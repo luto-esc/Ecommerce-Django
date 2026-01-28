@@ -1,0 +1,844 @@
+/* ===========================================
+   ESTILOS BASE - Ecommerce Simple & Minimalista
+   =========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+/* ===========================================
+   CONTENEDOR PRINCIPAL
+   =========================================== */
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    min-height: 100vh;
+}
+
+/* ===========================================
+   HEADER / NAVEGACIÓN
+   =========================================== */
+
+header {
+    background-color: #333;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.header-top {
+    background-color: #222;
+    padding: 8px 20px;
+}
+
+.user-greeting {
+    color: #ccc;
+    font-size: 14px;
+}
+
+.header-main {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 24px;
+    font-weight: normal;
+    margin: 0;
+    border: none;
+}
+
+.logo {
+    color: #fff;
+    text-decoration: none;
+}
+
+.logo:hover {
+    text-decoration: none;
+    color: #ddd;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #fff;
+}
+
+.nav-links a:hover {
+    background-color: #fff;
+    color: #333;
+    text-decoration: none;
+}
+
+.logout-form {
+    display: inline;
+    margin: 0;
+}
+
+.logout-form button,
+.nav-links button {
+    background-color: transparent;
+    color: #fff;
+    padding: 5px 10px;
+    border: 1px solid #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.logout-form button:hover,
+.nav-links button:hover {
+    background-color: #fff;
+    color: #333;
+}
+
+/* ===========================================
+   TÍTULOS
+   =========================================== */
+
+h1,
+h2,
+h3 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 28px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 22px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+/* ===========================================
+   LINKS
+   =========================================== */
+
+a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ===========================================
+   BOTONES
+   =========================================== */
+
+button,
+.btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover,
+.btn:hover {
+    background-color: #555;
+}
+
+.btn-secondary {
+    background-color: #666;
+}
+
+.btn-danger {
+    background-color: #cc3333;
+}
+
+.btn-danger:hover {
+    background-color: #aa2222;
+}
+
+.btn-success {
+    background-color: #339933;
+}
+
+.btn-success:hover {
+    background-color: #227722;
+}
+
+/* ===========================================
+   FORMULARIOS
+   =========================================== */
+
+form {
+    margin: 20px 0;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #333;
+    outline: none;
+}
+
+textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Estilos para formularios de Django */
+form ul {
+    list-style: none;
+}
+
+form ul li {
+    margin-bottom: 15px;
+}
+
+form p {
+    margin-bottom: 15px;
+}
+
+/* ===========================================
+   BARRA DE BÚSQUEDA
+   =========================================== */
+
+.search-form,
+.search-box {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+}
+
+.search-form input[type="text"],
+.search-box input[type="text"] {
+    display: inline-block;
+    width: 300px;
+    margin-right: 10px;
+}
+
+.search-form button,
+.search-box button {
+    vertical-align: top;
+}
+
+.search-box form {
+    margin: 0;
+}
+
+/* ===========================================
+   LISTA DE PRODUCTOS
+   =========================================== */
+
+.products-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    padding: 15px;
+}
+
+.product-item:hover {
+    border-color: #999;
+}
+
+.product-item-info {
+    flex: 1;
+}
+
+.product-item-name {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    border: none;
+}
+
+.product-item-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0;
+}
+
+.product-item-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 8px;
+}
+
+.product-item-image {
+    width: 100px;
+    height: 100px;
+    background-color: #f5f5f5;
+    overflow: hidden;
+    flex-shrink: 0;
+    margin-left: 20px;
+}
+
+.product-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.no-image-small {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #999;
+    font-size: 12px;
+    background-color: #f5f5f5;
+}
+
+.btn-view {
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.btn-view:hover {
+    background-color: #555;
+    text-decoration: none;
+}
+
+.btn-edit {
+    background-color: #666;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.btn-edit:hover {
+    background-color: #888;
+    text-decoration: none;
+}
+
+.btn-delete-small {
+    background-color: #cc3333;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.btn-delete-small:hover {
+    background-color: #aa2222;
+    text-decoration: none;
+}
+
+.no-products {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    padding: 40px;
+}
+
+/* ===========================================
+   DETALLE DE PRODUCTO
+   =========================================== */
+
+.product-detail {
+    max-width: 900px;
+}
+
+.product-detail-main {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.product-info {
+    flex: 1;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+}
+
+.product-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    border: none;
+}
+
+.product-price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.product-cost {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 15px;
+}
+
+.product-stock {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.product-reactions {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* Sección de descripción */
+.product-description-section {
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.product-description-section h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.product-description-section p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* ===========================================
+   CARRUSEL DE IMÁGENES
+   =========================================== */
+
+.carousel {
+    position: relative;
+    max-width: 500px;
+    margin: 20px 0;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+}
+
+.carousel-slide {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-slide.active {
+    display: block;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 15px 10px;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 10;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-prev {
+    left: 0;
+}
+
+.carousel-next {
+    right: 0;
+}
+
+.no-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #999;
+    font-size: 18px;
+}
+
+/* ===========================================
+   REACCIONES (LIKES/DISLIKES)
+   =========================================== */
+
+.reactions {
+    margin: 15px 0;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+}
+
+.reactions button {
+    margin-right: 10px;
+    padding: 8px 15px;
+}
+
+.btn-like {
+    background-color: #339933;
+}
+
+.btn-like:hover {
+    background-color: #227722;
+}
+
+.btn-dislike {
+    background-color: #cc3333;
+}
+
+.btn-dislike:hover {
+    background-color: #aa2222;
+}
+
+.btn-delete {
+    background-color: #cc3333;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 12px;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    background-color: #aa2222;
+    text-decoration: none;
+    color: #fff;
+}
+
+.btn-small {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.reactions-count {
+    margin-bottom: 15px;
+}
+
+.like-count,
+.dislike-count {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 14px;
+    color: #666;
+}
+
+.reaction-form {
+    display: inline;
+    margin: 0;
+}
+
+/* ===========================================
+   OPINIONES / COMENTARIOS
+   =========================================== */
+
+.opinions-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid #ddd;
+}
+
+.opinion {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.opinion .author {
+    font-weight: bold;
+    color: #333;
+}
+
+.opinion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.opinion .date {
+    font-size: 12px;
+    color: #999;
+}
+
+.opinion-reactions {
+    margin: 10px 0;
+}
+
+.opinion-actions {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.no-opinions {
+    color: #999;
+    font-style: italic;
+}
+
+.opinion .text {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+.opinion-form {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+}
+
+.opinion-form textarea {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* ===========================================
+   MENSAJES / ALERTAS
+   =========================================== */
+
+.message {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid;
+}
+
+.message-success {
+    background-color: #dff0d8;
+    border-color: #3c763d;
+    color: #3c763d;
+}
+
+.message-error {
+    background-color: #f2dede;
+    border-color: #a94442;
+    color: #a94442;
+}
+
+.message-info {
+    background-color: #d9edf7;
+    border-color: #31708f;
+    color: #31708f;
+}
+
+/* ===========================================
+   PAGINACIÓN
+   =========================================== */
+
+.pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.pagination a,
+.pagination span {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 3px;
+    border: 1px solid #ddd;
+    color: #333;
+}
+
+.pagination a:hover {
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+}
+
+.pagination .current {
+    background-color: #333;
+    color: #fff;
+}
+
+/* ===========================================
+   PÁGINAS DE AUTENTICACIÓN
+   =========================================== */
+
+.auth-page {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.auth-page h1 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.auth-page form {
+    margin: 0;
+}
+
+.auth-page button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.auth-links {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+
+/* ===========================================
+   UTILIDADES
+   =========================================== */
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+/* ===========================================
+   FOOTER
+   =========================================== */
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+footer p {
+    font-size: 14px;
+}
+
+/* ===========================================
+   RESPONSIVE - Básico
+   =========================================== */
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .product-card {
+        width: 100%;
+    }
+
+    .search-form input[type="text"] {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

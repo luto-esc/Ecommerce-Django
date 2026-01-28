@@ -2,99 +2,103 @@
 
 {% block content %}
 
-<h2>Detail Product </h2>
-
-    <ul>
-        <div>
-            {% for images in product.images.all %}
-                <img src="{{ images.images.url }}">
-            {% endfor %}
+<div class="product-detail">
+    <div class="product-detail-main">
+        <!-- Carrusel de imágenes (izquierda) -->
+        <div class="carousel">
+            <button class="carousel-btn carousel-prev" onclick="moveCarousel(-1)">&#10094;</button>
+            <div class="carousel-container">
+                {% for images in product.images.all %}
+                <div class="carousel-slide {% if forloop.first %}active{% endif %}">
+                    <img src="{{ images.images.url }}" alt="{{ product.name }}">
+                </div>
+                {% empty %}
+                <div class="carousel-slide active">
+                    <div class="no-image">Sin imagen</div>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-btn carousel-next" onclick="moveCarousel(1)">&#10095;</button>
         </div>
-        
-        <li>
-            {{product.name}}
-        </li>
-        
-        <li>
-            {{product.description}}
-        </li>
-        
-        <li>
-        	{{product.cost_price}}
-        </li>
 
-        <li>
-            {{product.price}}
-        </li>
-        
-        <li>
-            {{product.stock}}
-        </li>
+        <!-- Información del producto (derecha) -->
+        <div class="product-info">
+            <h2 class="product-title">{{ product.name }}</h2>
+            <p class="product-price">${{ product.price }}</p>
+            <p class="product-cost">Costo: ${{ product.cost_price }}</p>
+            <p class="product-stock">Stock disponible: {{ product.stock }} unidades</p>
 
-        {% if product.myLikes == 0 %}
-            <li>be the first like</li>
-        {% else %}
-            <li>
-                <p>{{product.myLikes}}likes</p>
-            </li>
-        {% endif %}
-        
-        {% if product.myDislikes == 0 %}
-            <li>be the first dislike</li>
-        {% else %}
-            <li>
-                <p>{{product.myDislikes}}dislikes</p>
-            </li>
-        {% endif %}
-    </ul>
-
-    <h3>Reaction</h3>
-        <form method="POST" action="{% url 'reactions:path_product_reaction' product.pk %}">{% csrf_token %}
-
-            <button type="submit" name="action" value="like">Like</button>
-
-            <button type="submit" name="action" value="dislike">Dislike</button>
-        </form>
-
-    <h3>Opinions</h3>
-        {% for o in product.myOpinions %}
-            <p>{{o.author}}</p>
-            <p>{{o.text}}</p>
-            <p>creado -> {{o.create_data}}</p>
-            <a href="{% url 'opinions:path_opinion_delete' o.pk %}">Delete</a>
-            {% if o.myLikes == 0 %}
-                <li>be the first like</li>
-            {% else %}
-                <li>
-                    <p>{{o.myLikes}}likes</p>
-                </li>
-            {% endif %}
-        
-            {% if o.myDislikes == 0 %}
-                <li>be the first dislike</li>
-            {% else %}
-                <li>
-                    <p>{{o.myDislikes}}dislikes</p>
-                </li>
-            {% endif %}        
-    <div>
-        <h3>Opinion Reaction</h3>
-            <form method="POST" action="{% url 'reactions:path_opinion_reaction' o.pk %}">{% csrf_token %}
-
-                <button type="submit" name="action" value="like">Like</button>
-
-                <button type="submit" name="action" value="dislike">Dislike</button>
-            </form>        
-    <div>
-        {% empty %}
-            <p>There are no reviews of the product yet.</p>
-        {% endfor %}
+            <!-- Reacciones integradas -->
+            <div class="product-reactions">
+                <span class="like-count">👍 {{ product.myLikes }}</span>
+                <span class="dislike-count">👎 {{ product.myDislikes }}</span>
+                <form method="POST" action="{% url 'reactions:path_product_reaction' product.pk %}"
+                    class="reaction-form">
+                    {% csrf_token %}
+                    <button type="submit" name="action" value="like" class="btn-small btn-like">Like</button>
+                    <button type="submit" name="action" value="dislike" class="btn-small btn-dislike">Dislike</button>
+                </form>
+            </div>
+        </div>
     </div>
-        <h2>Leave your opinion</h2>
-            <form method="POST" action="{% url 'opinions:path_opinion_create' product.pk %}">{% csrf_token %}
-                <textarea style="width:400px; height: 200px;" name="text_comment"></textarea>
-                <button type="submit">Comment</button>
+
+    <!-- Descripción del producto -->
+    <div class="product-description-section">
+        <h3>Descripción</h3>
+        <p>{{ product.description }}</p>
+    </div>
+
+    <!-- Sección de opiniones -->
+    <div class="opinions-section">
+        <h3>Opiniones</h3>
+
+        {% for o in product.myOpinions %}
+        <div class="opinion">
+            <div class="opinion-header">
+                <span class="author">{{ o.author }}</span>
+                <span class="date">{{ o.create_data }}</span>
+            </div>
+            <p class="text">{{ o.text }}</p>
+            <div class="opinion-reactions">
+                <span class="like-count">👍 {{ o.myLikes }}</span>
+                <span class="dislike-count">👎 {{ o.myDislikes }}</span>
+            </div>
+            <div class="opinion-actions">
+                <form method="POST" action="{% url 'reactions:path_opinion_reaction' o.pk %}" class="reaction-form">
+                    {% csrf_token %}
+                    <button type="submit" name="action" value="like" class="btn-small btn-like">Like</button>
+                    <button type="submit" name="action" value="dislike" class="btn-small btn-dislike">Dislike</button>
+                </form>
+                <a href="{% url 'opinions:path_opinion_delete' o.pk %}" class="btn-small btn-delete">Eliminar</a>
+            </div>
+        </div>
+        {% empty %}
+        <p class="no-opinions">Todavía no hay opiniones sobre este producto.</p>
+        {% endfor %}
+
+        <!-- Formulario para dejar opinión -->
+        <div class="opinion-form">
+            <h4>Deja tu opinión</h4>
+            <form method="POST" action="{% url 'opinions:path_opinion_create' product.pk %}">
+                {% csrf_token %}
+                <textarea name="text_comment" placeholder="Escribe tu opinión aquí..."></textarea>
+                <button type="submit">Comentar</button>
             </form>
+        </div>
+    </div>
+</div>
 
+<script>
+    let currentSlide = 0;
 
-{% endblock content%}
+    function moveCarousel(direction) {
+        const slides = document.querySelectorAll('.carousel-slide');
+        if (slides.length === 0) return;
+
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + direction + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }
+</script>
+
+{% endblock content %}
