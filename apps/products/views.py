@@ -5,6 +5,7 @@ from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
 from django.urls import reverse_lazy
 from django.core.paginator import Paginator
 from django.db.models import Prefetch
+from django.contrib.auth.models import User
 
 #-------------CREATE----------------
 class ProductCreateView(CreateView):
@@ -103,3 +104,34 @@ class ProductDeleteView(DeleteView):
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'products/product_detail.html'
+
+
+#-------------LIST MY PRODUCTS---------------
+def listmyproducts(request, pk):
+    #agarramos todo el usuario
+    user_pk = request.user
+    #agarramos especificamente la id o pk del usuario
+    user_pk = user_pk.pk
+    #agarramos los productos que sean tengan la pk igual a la del usuario
+    products = Product.objects.filter(user_author_id = user_pk)
+    
+    query = request.GET.get('name','')
+    if query:
+        products = products.filter(name__icontains=query)
+        #products.prefetch_related  # Método de QuerySet, es adecuado para relaciones uno-a-muchos y muchos-a-muchos
+        # Ejecuta una consulta para Product y una consulta extra para todas las imágenes relacionadas
+        # Prefetch --> permite personalizar cómo se realiza la precarga de datos
+        # 'images' --> es el related_name de la ForeignKey
+        # queryset --> define qué imágenes traer y cómo ordenarlas
+        # to_attr --> guarda el resultado en un nuevo atributo llamado "prefetch_images"
+    products = products.prefetch_related(Prefetch('images',queryset=ProductImage.objects.order_by('id'),to_attr='prefetched_images'))
+
+    paginator = Paginator(products,5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {}
+    context["page_obj"] = page_obj
+    context["query"] = query
+
+    return render(request,'products/products_bymyuser.html', context)
