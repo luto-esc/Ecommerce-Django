@@ -1,11 +1,3 @@
-{% extends 'base.html' %}
+{% extends 'products/products_list.html' %}
 
-{% block content %}
-
-<h1>My Products</h1>
-
-{% block listview %}
-
-{% endblock listview %}
-
-{% endblock content %}
+<h1>{% block producttitle %}My Products{% endblock producttitle %}</h1>

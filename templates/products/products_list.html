@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
 
-<h1>Productos</h1>
-
-{% block listview %}
-
+<h1>{% block producttitle %}Products enable{% endblock producttitle %}</h1>
 <!-- Barra de búsqueda -->
 <div class="search-box">
     <form method="GET">
@@ -56,7 +54,5 @@
     {% endif %}
 </div>
 {% endif %}
-
-{% endblock listview %}
 
 {% endblock content %}

@@ -118,12 +118,7 @@ def listmyproducts(request, pk):
     query = request.GET.get('name','')
     if query:
         products = products.filter(name__icontains=query)
-        #products.prefetch_related  # Método de QuerySet, es adecuado para relaciones uno-a-muchos y muchos-a-muchos
-        # Ejecuta una consulta para Product y una consulta extra para todas las imágenes relacionadas
-        # Prefetch --> permite personalizar cómo se realiza la precarga de datos
-        # 'images' --> es el related_name de la ForeignKey
-        # queryset --> define qué imágenes traer y cómo ordenarlas
-        # to_attr --> guarda el resultado en un nuevo atributo llamado "prefetch_images"
+    
     products = products.prefetch_related(Prefetch('images',queryset=ProductImage.objects.order_by('id'),to_attr='prefetched_images'))
 
     paginator = Paginator(products,5)
@@ -135,3 +130,7 @@ def listmyproducts(request, pk):
     context["query"] = query
 
     return render(request,'products/products_bymyuser.html', context)
+
+
+#-------------LIST PRODUCTS BY USER---------------
+
