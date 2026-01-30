@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .forms import CreateProductForm
 from .models import Product, ProductImage
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
@@ -54,7 +54,7 @@ def productreadview(request):
 # queryset --> define qué imágenes traer y cómo ordenarlas
 # to_attr --> guarda el resultado en un nuevo atributo llamado "prefetch_images"
     products = products.prefetch_related(Prefetch('images',queryset=ProductImage.objects.order_by('id'),to_attr='prefetched_images'))
-
+    
     paginator = Paginator(products,5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -133,4 +133,25 @@ def listmyproducts(request, pk):
 
 
 #-------------LIST PRODUCTS BY USER---------------
+def listproductsbyuser(request, username):
+    #agarramos el username del usuario
+    profile_user = get_object_or_404(User, username = username)
+    #agarramos los productos que tengan ese usuario
+    products = Product.objects.filter(user_author = profile_user)
 
+    query = request.GET.get('name','')
+    if query:
+        products = products.filter(name__icontains=query)
+    
+    products = products.prefetch_related(Prefetch('images',queryset=ProductImage.objects.order_by('id'),to_attr='prefetched_images'))
+
+    paginator = Paginator(products,5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {}
+    context['profile_user'] = profile_user
+    context["page_obj"] = page_obj
+    context["query"] = query
+
+    return render(request, 'products/products_byuser.html', context)

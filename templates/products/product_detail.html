@@ -27,7 +27,7 @@
             <p class="product-price">${{ product.price }}</p>
             <p class="product-cost">Costo: ${{ product.cost_price }}</p>
             <p class="product-stock">Stock disponible: {{ product.stock }} unidades</p>
-
+            <a href="{% url 'products:path_products_list_byuser' product.user_author.username %}">Ver mas productos de {{product.user_author.username}}</a>
             <!-- Reacciones integradas -->
             <div class="product-reactions">
                 <span class="like-count">👍 {{ product.myLikes }}</span>
