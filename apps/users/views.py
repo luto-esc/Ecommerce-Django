@@ -9,5 +9,5 @@ class UserRegister(CreateView):
 	form_class = UserRegisterForm
 	success_url = reverse_lazy('users:path_login')
 
-def userperfil(request, pk):
+def user_register(request):
 	pass

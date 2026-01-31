@@ -45,14 +45,20 @@ def productreadview(request):
     products = Product.objects.all()
 
     query = request.GET.get('name','')
+    price_min = request.GET.get('min_price')
     if query:
         products = products.filter(name__icontains=query)
-#products.prefetch_related  # Método de QuerySet, es adecuado para relaciones uno-a-muchos y muchos-a-muchos
-# Ejecuta una consulta para Product y una consulta extra para todas las imágenes relacionadas
-# Prefetch --> permite personalizar cómo se realiza la precarga de datos
-# 'images' --> es el related_name de la ForeignKey
-# queryset --> define qué imágenes traer y cómo ordenarlas
-# to_attr --> guarda el resultado en un nuevo atributo llamado "prefetch_images"
+
+    if price_min:
+        #SELECT * FROM product WHERE price >= price_min
+        products = products.filter(price__gte=price_min)
+
+    #products.prefetch_related  # Método de QuerySet, es adecuado para relaciones uno-a-muchos y muchos-a-muchos
+    # Ejecuta una consulta para Product y una consulta extra para todas las imágenes relacionadas
+    # Prefetch --> permite personalizar cómo se realiza la precarga de datos
+    # 'images' --> es el related_name de la ForeignKey
+    # queryset --> define qué imágenes traer y cómo ordenarlas
+    # to_attr --> guarda el resultado en un nuevo atributo llamado "prefetch_images"
     products = products.prefetch_related(Prefetch('images',queryset=ProductImage.objects.order_by('id'),to_attr='prefetched_images'))
     
     paginator = Paginator(products,5)

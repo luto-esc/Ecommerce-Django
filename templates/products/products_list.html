@@ -4,13 +4,28 @@
 {% block content %}
 
 <h1>{% block product_title %}Available products{% endblock product_title %}</h1>
-<!-- Barra de búsqueda -->
+<!-- Barra de búsqueda --> <!-- Checkox Price -->
 <div class="search-box">
-    <form method="GET">
+    <form method="GET"> 
         <input type="text" name="name" placeholder="Buscar productos..." value="{{ query }}">
-        <button type="submit">Buscar</button>
+        <button type="submit">Search</button>
+
+        <div>
+            <label>
+                <input type="checkbox" name="min_price" value="10000" onchange="this.form.submit()">Greater than $10.000
+            </label>
+
+            <label>
+                <input type="checkbox" name="min_price" value="20000" onchange="this.form.submit()">Greater than $20.000
+            </label>
+
+            <label>
+                <input type="checkbox" name="min_price" value="100000" onchange="this.form.submit()">Greater than $100.000
+            </label>
+        </div>
     </form>
 </div>
+
 
 <!-- Lista de productos -->
 <div class="products-list">
