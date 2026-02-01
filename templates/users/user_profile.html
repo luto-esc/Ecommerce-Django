@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<img src="{{ profile.profile_image.url }}">
+
+<h1>{{ profile.user.username }}</h1>
+
+<p>{{profile.bio}}</p>
+
+<p>{{profile.description}}</p>
+
+
+
+{% endblock content %}
